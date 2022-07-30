@@ -277,3 +277,41 @@ def loop9() -> int:
     print(f"nine loop db count: {len(db)}")
     return len(db)
 ```
+# Generate analysis and selection of the coefficient.
+I use a multiplication factor a little more than 2, 10, 100, 1000 - due to the fact that it did not give the correct result.  
+I end up using:  
+rounding to 5 decimal places.  
+to increase by 2 times - coefficient 2.2  
+to 10 times - 15.  
+to 100 - 150.  
+so that in 1000 - 4500.  
+As a result, it works approximately correctly. But it can work worse for large numbers.  
+```python
+def loop9() -> int:
+    db = []
+
+    for num in range(need_items):
+        _id = "-".join([
+            str(uuid4()),
+            str(uuid4()),
+            str(uuid4()),
+            str(uuid4())
+        ])
+
+        if _id not in db:
+            db.append(_id)
+        else:
+            continue
+    print(f"nine loop db count: {len(db)}")
+    return len(db)
+
+loop9_time = timeit.timeit(loop9, number=1)
+print(f"loop9: {round(loop9_time, 5)}s")
+print(
+    f"loop9 {need_items}*2={need_items*2} about time: {round(loop9_time*2.2, 5)}s")
+print(
+    f"loop9 {need_items}*10={need_items*10} about time: {round(loop9_time*15, 5)}s")
+print(
+    f"loop9 {need_items}*100={need_items*100} about time: {round(loop9_time*150, 5)}s")
+print(f"loop9 {need_items}*1000={need_items*1000} about time: {round(loop9_time*4500, 5)}s")
+```
